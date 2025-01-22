@@ -206,6 +206,13 @@ def parseLine(line, script_lines):
     elif line.startswith("VAR"):
         _, var, _, value = line.split()
         variables[var] = int(value)
+    elif line.startswith("PASSIVE_DETECT"):
+        while True:
+            kbd.press(Keycode.CAPS_LOCK)
+            kbd.release(Keycode.CAPS_LOCK)
+            if kbd.led_on(Keyboard.LED_CAPS_LOCK):
+                break
+            time.sleep(.1)
     elif line.startswith("DEFINE"):
         defineLocation = line.find(" ")
         valueLocation = line.find(" ", defineLocation + 1)
